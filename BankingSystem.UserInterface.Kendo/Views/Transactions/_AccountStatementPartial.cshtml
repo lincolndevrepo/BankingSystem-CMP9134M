@@ -1,0 +1,153 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.TransactionHistory
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+<div id="tableWithDynamicRows_wrapper" class="dataTables_wrapper form-inline no-footer">
+    <table class="table table-hover dataTable nowrap" id="statementTable" role="grid" cellspacing="0" width="100%">
+        <thead>
+            <tr role="row">
+                <th class="text-left all">Date</th>
+                <th class="text-left all">Description</th>
+                <th class="text-center all">Type</th>
+                <th class="text-right">Opening</th>
+                <th class="text-right">Deposit</th>
+                <th class="text-right">Withdraw</th>
+                <th class="text-right">Balance</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Opening</th>
+                <th>Deposit</th>
+                <th>Withdraw</th>
+                <th>Balance</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    var dataTable, rowDelete;
+    $(document).ready(function () {
+        var acc_id = $('#acc_id').val();
+        var date_from = $('#date_from').val();
+        var date_to = $('#date_to').val();
+        dataTable = $("#statementTable")
+            .DataTable({
+                ajax: {
+                    type: "GET",
+                    url: "/Transactions/SelectAllByAccountIdAndDateRange?acc_id=" + acc_id + "&date_from=" + date_from + "&date_to=" + date_to,
+                    contentType: "application/json",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('body').loadingModal({ text: 'Loading...' });
+                    },
+                    complete: function () {
+                        $('body').loadingModal('hide');
+                    }
+                },
+                paging: true,
+                bProcessing: false,
+                bSearchable: true,
+                bSort: false,
+                responsive: true,
+                searching: true,
+                info: false,
+
+                sDom: "<t><'row'<p i>>",
+                destroy: true,
+                scrollCollapse: true,
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo: "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+                },
+                iDisplayLength: 100,
+
+                columnDefs: [
+                    { width: '100%',  targets: 1 },
+                    { width: '100', targets: 2 },
+                    { width: '100', targets: 3 },
+                    { width: '100', targets: 4 },
+                    { width: '100', targets: 5 },
+                    { width: '100', targets: 6 }
+                ],
+                columns: [
+                    {
+                        data: "trn_date", "render": function (data, type, full, meta) {
+                            var dateTimeString = data;
+                            var date = new Date(dateTimeString);
+                            var dateOnly = date.toLocaleDateString();
+                            return "<td><span>" + dateOnly + "</span></td>";
+                        }
+                    },
+                    { data: "trn_description" },
+                    {
+                        data: "trn_type", "render": function (data, type, full, meta) {
+                            if (data == 'D') {
+                                return "<td><span>DEPOSIT</span></td>"
+                            }
+                            else if (data == 'W'){
+                                return "<td><span>WITHDRAW</span></td>"
+                            }
+                            else if (data == 'T') {
+                                return "<td><span>TRANSFER</span></td>"
+                            }
+                        }, className: "text-center"
+                    },
+                    {
+                        data: "trn_opn_balance", "render": function (data, type, full, meta) {
+                            return "<td><span>" + formatNumericString(data) + "</span></td>";
+                        }, className: "text-right p-r-5"
+                    },
+                    {
+                        data: "trn_cramount", "render": function (data, type, full, meta) {
+                            return "<td><span>" + formatNumericString(data) + "</span></td>";
+                        }, className: "text-right p-r-5"
+                    },
+                    {
+                        data: "trn_dramount", "render": function (data, type, full, meta) {
+                            return "<td><span>" + formatNumericString(data) + "</span></td>";
+                        }, className: "text-right p-r-5"
+                    },
+                    {
+                        data: "trn_cls_balance", "render": function (data, type, full, meta) {
+                            return "<td><span>" + formatNumericString(data) + "</span></td>";
+                        }, className: "text-right p-r-5"
+                    }
+                ],
+                initComplete: function (settings, json) {
+                    this.api()
+                        .columns()
+                        .every(function () {
+                            let column = this;
+                            let title = column.footer().textContent;
+
+                            // Create input element
+                            let input = document.createElement('input');
+                            input.placeholder = title;
+                            column.footer().replaceChildren(input);
+
+                            // Event listener for user input
+                            input.addEventListener('keyup', () => {
+                                if (column.search() !== this.value) {
+                                    column.search(input.value).draw();
+                                }
+                            });
+                        });
+                }
+            });
+
+        $('#search-table').on('keyup', function () {
+            dataTable
+                .column(1).search(this.value)
+                .column(3).search(this.value)
+                .column(4).search(this.value)
+                .column(5).search(this.value)
+                .draw();
+        });
+    });
+</script>

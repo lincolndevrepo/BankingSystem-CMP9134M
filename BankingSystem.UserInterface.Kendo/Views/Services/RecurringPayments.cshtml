@@ -1,0 +1,366 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.RecurringSelect
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+        <div class="inner">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">SERVICES</a></li>
+                <li class="breadcrumb-item active">RECURRING PAYMENTS</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="bg-white">
+        <div class="row">
+            <div class="col-lg-12">
+                <div data-pages="card" class="card card-default card-collapsed" id="card-transaction">
+                    <div class="card-header  ">
+                        <div class="card-title">
+                            <h2>Recurring Payments</h2>
+                        </div>
+                        <div class="card-controls">
+                            <ul>
+                                <li>
+                                    <a id="arrow-collapse" data-toggle="collapse" class="card-collapse">
+                                        <i class="pg-arrow_minimize"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-recurrings" class="needs-validation" novalidate role="form" autocomplete="off" asp-action="Save" asp-controller="Accounts">
+                            <kendo-numerictextbox for="rdd_id" name="rdd_id" class="form-group hidden"></kendo-numerictextbox>
+
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Account Details</p>
+                            </div>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">From Account</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default form-group-default-select2">
+                                        <label class="">Account No.</label>
+                                        <select asp-for="rdd_debit_acc_id_fk" asp-items="@ViewBag.Accounts" class="full-width select2-hidden-accessible select-js form-group-parent" required tabindex="2">
+                                            <option value="">Select From Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Holder Name</label>
+                                        <kendo-textbox for="acc_holder_name_debit" type="text" class="form-control" name="acc_holder_name" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="3"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Type</label>
+                                        <kendo-textbox for="acc_account_type_debit" type="text" class="form-control" name="acc_account_type" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">To Account</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default form-group-default-select2">
+                                        <label class="">Account No.</label>
+                                        <select asp-for="rdd_credit_acc_id_fk" asp-items="@ViewBag.Accounts" class="full-width select2-hidden-accessible select-js form-group-parent" required tabindex="2">
+                                            <option value="">Select To Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Holder Name</label>
+                                        <kendo-textbox for="acc_holder_name_debit" type="text" class="form-control" name="acc_holder_name_debit" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="3"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Type</label>
+                                        <kendo-textbox for="acc_account_type_credit" type="text" class="form-control" name="acc_account_type_credit" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-8 form-group-parent">
+                                    <div class="form-group form-group-default required">
+                                        <label>Description</label>
+                                        <kendo-textbox for="rdd_description" type="text" class="form-control" name="rdd_description" required data-pristine-required-message="This field is required" placeholder="Transaction Description" tabindex="5"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default form-group-default-select2">
+                                        <label class="">On every day of month</label>
+                                        <select asp-for="rdd_day_number" asp-items="@ViewBag.DayOfMonth" class="full-width select2-hidden-accessible select-js form-group-parent" required tabindex="2">
+                                            <option value="">Select Day of Month</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default required">
+                                        <label>Amount</label>
+                                        <kendo-numerictextbox for="rdd_amount" min="1" max="10000000" format="n2" class="form-control" name="rdd_amount" required data-pristine-min-message="This field is required" placeholder="Enter Amount" tabindex="6"></kendo-numerictextbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix mt-2">
+                                <div class="col-12 float-end">
+                                    <div class="float-right">
+                                        <button id="btnClear" class="btn btn-default btn-clear ml-2" type="reset" tabindex="11">Clear</button>
+                                        <button id="btnSubmit" class="btn btn-success ml-2" type="submit" tabindex="12">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-header ">
+                        <div class="card-title">
+                        </div>
+                        <div class="pull-right">
+                            <div class="col-xs-12">
+                                <input type="text" id="search-table" class="form-control pull-right" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="card-body">
+                        <div id="tableWithDynamicRows_wrapper" class="dataTables_wrapper form-inline no-footer">
+                            <table class="table table-hover dataTable nowrap" id="recurringsTable" role="grid" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="text-left all">Id</th>
+                                        <th class="text-center all">From Account</th>
+                                        <th class="text-center all">To Account</th>
+                                        <th class="text-left all">Description</th>
+                                        <th class="text-left all">Amount</th>
+                                        <th class="text-center">Every</th>
+                                        <th class="text-right all">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var dataTable, rowDelete;
+    function initializeDataTable() {
+        var acc_id = $('#rdd_debit_acc_id_fk').val();
+        dataTable = $("#recurringsTable").DataTable({
+            ajax: {
+                "url": "/Services/SelectRecurringBySourceAccountId?acc_id=" + acc_id,
+                "type": "GET",
+                "datatype": "json",
+                beforeSend: function () {
+                    $('body').loadingModal({ text: 'Loading...' });
+                },
+                complete: function () {
+                    $('body').loadingModal('hide');
+                }
+            },
+            paging: true,
+            bProcessing: false,
+            bSearchable: true,
+            bSort: false,
+            responsive: true,
+            searching: true,
+            info: false,
+            sDom: "<t><'row'<p i>>",
+            destroy: true,
+            scrollCollapse: true,
+            oLanguage: {
+                sLengthMenu: "_MENU_ ",
+                sInfo: "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+            },
+            iDisplayLength: 100,
+            columnDefs: [
+                { width: '100%', targets: 3 },
+                {
+                    targets: -1,
+                    data: null,
+                    defaultContent: "<button id='edit-this' class='btn btn-primary btn-sm'>Edit</button>",
+                }
+            ],
+            columns: [
+                { data: "rdd_id" },
+                { data: "acc_number_debit" },
+                { data: "acc_number_credit" },
+                { data: "rdd_description" },
+                { data: "rdd_amount" },
+                { data: "rdd_day_number" },
+                { data: null, className: "text-center" }
+            ]
+        });
+    }
+
+    $(document).ready(function () {
+        initializeDataTable();
+        $('#search-table').on('keyup', function () {
+            dataTable.column(2).search(this.value).draw();
+        });
+
+        $('#recurringsTable tbody').on('click', '#edit-this', function () {
+            current_row = $(this).parents('tr');
+            if (current_row.hasClass('child')) {
+                current_row = current_row.prev();
+            }
+            var data = dataTable.row(current_row).data();
+            $.cxDialog({
+                title: 'Confirm Edit',
+                info: 'Do you want to edit this record?',
+                ok: function () {
+                    $('#form-recurrings').jform(data);
+                    $('#rdd_id').numericValue(data.rdd_id);
+                    $('#rdd_amount').numericValue(data.rdd_amount);
+                    ShowNotification('Record placed in edit mode.', 'info', 'bar', 10000);
+                    GoTop();
+                    rowEdit = true;
+                    $('#btnSubmit').text('Update');
+                },
+                okText: 'Yes',
+                no: function () {
+
+                },
+                noText: 'No',
+                baseClass: 'ios'
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var n = document.getElementById('form-recurrings'), i = new Pristine(n);
+        $('.select-js').select2();
+    });
+
+    $(document).on('change', "#rdd_debit_acc_id_fk", function (e) {
+        var n = document.getElementById('rdd_debit_acc_id_fk'), i = new Pristine(n);
+        var validated = i.validate($('#rdd_debit_acc_id_fk'));
+        var rdd_debit_acc_id_fk = $('#rdd_debit_acc_id_fk').val();
+        debugger;
+        if (validated) {
+            $.ajax({
+                url: '/Accounts/SelectAccountById/?acc_id=' + rdd_debit_acc_id_fk,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#acc_holder_name_debit').val(data.acc_holder_name);
+                    $('#acc_account_type_debit').val(data.acc_account_type);
+                    initializeDataTable();
+                },
+                error: function () { },
+            });
+        }
+    });
+
+    $(document).on('change', "#rdd_credit_acc_id_fk", function (e) {
+        var n = document.getElementById('rdd_credit_acc_id_fk'), i = new Pristine(n);
+        var validated = i.validate($('#rdd_credit_acc_id_fk'));
+        var rdd_credit_acc_id_fk = $('#rdd_credit_acc_id_fk').val();
+        if (validated) {
+            $.ajax({
+                url: '/Accounts/SelectAccountById/?acc_id=' + rdd_credit_acc_id_fk,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#acc_holder_name_credit').val(data.acc_holder_name);
+                    $('#acc_account_type_credit').val(data.acc_account_type);
+                },
+                error: function () { },
+            });
+        }
+    });
+
+    $(document).on('change', "#rdd_day_number", function (e) {
+        var n = document.getElementById('rdd_day_number'), i = new Pristine(n);
+        var validated = i.validate($('#rdd_day_number'));
+    });
+
+    $(function () {
+        $('#form-recurrings').submit(function (e) {
+            e.preventDefault();
+            var n = document.getElementById('form-recurrings'), i = new Pristine(n);
+            if (i.validate()) {
+                var formArray = JSON.parse($('#form-recurrings').jform(), (key, value) => {
+                    if (value === "true") {
+                        return true;
+                    } else if (value === "false") {
+                        return false;
+                    } else if (typeof value === "string" && /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value)) {
+                        const [_, day, month, year] = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                        return new Date(`${year}-${month}-${day}T00:00:00Z`);
+                    }
+                    return value;
+                });
+                var formJson = JSON.stringify(formArray);
+                var rdd_id = $("#rdd_id").numericValue();
+                if (rdd_id == 0) {
+                    var url = "/services/recurringinsert/";
+                }
+                else {
+                    var url = "/services/recurringupdate/";
+                }
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    data: formJson,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    headers: {
+
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        i.reset();
+                        if (result.success) {
+                            ShowNotification('Saving complete. Your changes have been recorded.', 'success', 'bar', 5000);
+                            dataTable.ajax.reload();
+                            $('.btn-clear').trigger('click');
+                        }
+                        else {
+                            ShowNotification('Save unsuccessful. ' + result.message, 'error', 'bar', 10000);
+                        }
+                        $('#btnSubmit').text('Submit');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        ShowNotification('Save unsuccessful. ' + textStatus, 'error', 'bar', 10000);
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', ".btn-clear", function (e) {
+        $('.select-js').val(null).trigger('change');
+        var n = document.getElementById('form-recurrings'), i = new Pristine(n);
+        i.reset();
+        dataTable.ajax.reload();
+        $('#btnSubmit').text('Submit');
+    });
+</script>

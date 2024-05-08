@@ -1,0 +1,145 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.UserSelect
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<style>
+    /* Column 8/12 */
+    .authmessage {
+        padding-top: 0px;
+    }
+
+    .sm-p-l-10 {
+        padding-left: 0px !important;
+    }
+
+    #btnLogout {
+        font-size: 13px;
+        font-weight: 400 !important;
+        color: #5e5e5e;
+    }
+
+</style>
+
+<div class="login-container bg-white">
+    <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+        <img src="~/assets/img/lincoln-logo.webp" alt="logo" data-src="/assets/img/lincoln-logo.webp" data-src-retina="/assets/img/lincoln-logo.webp" width="117" height="33">
+        <p class="p-t-35">Sign into your pages account</p>
+        <!-- START Login Form -->
+        <form id="form-login" class="needs-validation" novalidate role="form" autocomplete="off" asp-action="authenticate" asp-controller="users">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 form-group-parent">
+                    <div class="form-group form-group-default required">
+                        <label>Email</label>
+                        <kendo-textbox for="usr_email" type="email" class="form-control" required data-pristine-required-message="This field is required" name="usr_email" placeholder="Enter email"></kendo-textbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 form-group-parent">
+                    <div class="form-group form-group-default required">
+                        <label>Password</label>
+                        <kendo-textbox for="usr_password" type="password" class="form-control" required data-pristine-required-message="This field is required" name="usr_password" placeholder="Enter password"></kendo-textbox>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label id="failed-message" class="text-danger hidden authmessage">Invalid Username or Password.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="col-md-4">
+                        <button id="btnSubmit" class="btn btn-primary btn-cons m-t-10" type="submit" tabindex="12">Sign in</button>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                </div>
+            </div>
+        </form>
+        <div class="pull-bottom sm-pull-bottom">
+            <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
+                <div class="col-sm-3 col-md-2 no-padding">
+                    @*<img alt="" class="m-t-5" data-src="/assets/img/demo/logo.png" data-src-retina="~/assets/img/demo/pages_icon_2x.png" height="60" src="~/assets/img/demo/pages_icon.png" width="60">*@
+                </div>
+                <div class="col-sm-9 no-padding m-t-10">
+                    <p>
+                        <small>
+                            The most cost effective, easy to use, cloud-based accounting software to boost your day-to-day business, improve your operations, and increase productivity.
+                            <br>Get on the cloud, today!
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Select both usr_email and usr_password fields
+        $('#usr_email, #usr_password').on('input', function () {
+            // Check which field triggered the change
+            $("#failed-message").addClass("hidden");
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#form-login').submit(function (e) {
+            e.preventDefault();
+            var n = document.getElementById('form-login'), i = new Pristine(n);
+            if (i.validate()) {
+                var formArray = JSON.parse($('#form-login').jform(), (key, value) => {
+                    if (value === "true") {
+                        return true;
+                    } else if (value === "false") {
+                        return false;
+                    } else if (typeof value === "string" && /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value)) {
+                        const [_, day, month, year] = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                        return new Date(`${year}-${month}-${day}T00:00:00Z`);
+                    }
+                    return value;
+                });
+                var formJson = JSON.stringify(formArray);
+                debugger;
+                var url = "/users/authenticate/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    data: formJson,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    headers: {
+
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        i.reset();
+                        if (result.success) {
+                            window.location = '/home/index';
+                        }
+                        else {
+                            $("#failed-message").removeClass("hidden");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $("#failed-message").removeClass("hidden");
+                    }
+                });
+            }
+        });
+    });
+</script>

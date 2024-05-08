@@ -1,0 +1,278 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.TransactionSelect
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+        <div class="inner">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">TRANSACTIONS</a></li>
+                <li class="breadcrumb-item active">DESPOSIT CASH</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="bg-white">
+        <div class="row">
+            <div class="col-lg-12">
+                <div data-pages="card" class="card card-default card-collapsed" id="card-transaction">
+                    <div class="card-header  ">
+                        <div class="card-title">
+                            <h2>Deposit Cash</h2>
+                        </div>
+                        <div class="card-controls">
+                            <ul>
+                                <li>
+                                    <a id="arrow-collapse" data-toggle="collapse" class="card-collapse">
+                                        <i class="pg-arrow_minimize"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-transaction" class="needs-validation" novalidate role="form" autocomplete="off" asp-action="Save" asp-controller="Accounts">
+                            <kendo-numerictextbox for="trn_id" name="trn_acc_id_fk" class="form-group hidden"></kendo-numerictextbox>
+                            <kendo-textbox for="trn_receipt_no" name="trn_receipt_no" class="form-group hidden"></kendo-textbox>
+                            <kendo-textbox for="trn_type" name="trn_type" class="form-group hidden"></kendo-textbox>
+                            
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Account Details</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default required">
+                                        <label>Date</label>
+                                        <kendo-dateinput for="trn_date" format="dd/MM/yyyy" type="text" class="form-control" name="trn_date" value="@DateTime.Today" required data-pristine-required-message="This field is required" tabindex="1"></kendo-dateinput>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default form-group-default-select2">
+                                        <label class="">Account No.</label>
+                                        <select asp-for="trn_acc_id_fk" asp-items="@ViewBag.Accounts" class="full-width select2-hidden-accessible select-js form-group-parent" required tabindex="2">
+                                            <option value="">Select Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Holder Name</label>
+                                        <kendo-textbox for="acc_holder_name" type="text" class="form-control" name="acc_holder_name" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="3"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Type</label>
+                                        <kendo-textbox for="acc_account_type" type="text" class="form-control" name="acc_account_type" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-10 form-group-parent">
+                                    <div class="form-group form-group-default required">
+                                        <label>Description</label>
+                                        <kendo-textbox for="trn_description" type="text" class="form-control" name="trn_description" required data-pristine-required-message="This field is required" placeholder="Transaction Description" tabindex="5"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default required">
+                                        <label>Amount</label>
+                                        <kendo-numerictextbox for="trn_cramount" min="0" max="10000000" format="n2" class="form-control" name="trn_cramount" required placeholder="Enter Amount" tabindex="6"></kendo-numerictextbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix mt-2">
+                                <div class="col-12 float-end">
+                                    <div class="float-right">
+                                        <button id="btnClear" class="btn btn-default btn-clear ml-2" type="reset" tabindex="11">Clear</button>
+                                        <button id="btnSubmit" class="btn btn-success ml-2" type="submit" tabindex="12">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="invoice">
+                            <div>
+                                <div class="pull-left">
+                                    <img style="padding-left: 15px;" width="75" height="75" alt="" class="invoice-logo" data-src-retina="/assets/img/invoice/hello-bank-logo.png" data-src="/assets/img/invoice/hello-bank-logo.png" src="/assets/img/invoice/hello-bank-logo.png">
+                                    <div class="col-9 col-sm-height sm-no-padding">
+                                        <h5 class="semi-bold m-t-0">Hello Bank Limited,</h5>
+                                        <address style="width: 300px;">
+                                            123 Main Street,London W1A 1AA,
+                                            <br>United Kingdom
+                                            <br>
+                                            <strong>(877) 412-7753.</strong>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="pull-right sm-m-t-20">
+                                    <p class="small no-margin">Date : <span id="trn-date">  /  /    </span></p>
+                                    <h2 class="font-montserrat all-caps hint-text">Deposit Slip</h2>
+                                    <strong>Receipt No. <span id="trn-receipt"></span></strong>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <br>
+                            <div class="table-responsive table-invoice">
+                                <table class="table m-t-10">
+                                    <thead>
+                                        <tr>
+                                            <th class="">Description</th>
+                                            <th class="text-right">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="">
+                                                <p class="text-black">Cash Deposit</p>
+                                                <p id="trn-description" class="small hint-text">
+                                                    Description
+                                                </p>
+                                            </td>
+                                            <td id="trn-amount" class="text-right">£0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div class="p-l-15 p-r-15">
+                                <div class="row b-a b-grey">
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-5 text-right bg-master-darker col-sm-height padding-15 d-flex flex-column justify-content-center align-items-end">
+                                        <h5 class="font-montserrat all-caps small no-margin hint-text text-white bold">Total</h5>
+                                        <h1 id="grand-total" class="no-margin text-white">£0.00</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateReceiptDate(value) {
+        $("#trn-date").text(dateToUk(value));
+    }
+
+    function updateReceiptNo(value) {
+        $("#trn-receipt").text(value);
+    }
+
+    function updateDescription(value) {
+        $('#trn-description').text(value);
+    }
+
+    function updateAmount(value) {
+        $('#trn-amount').text('£' + formatNumericString(value));
+        $('#grand-total').text('£' + formatNumericString(value));
+    }
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        var n = document.getElementById('form-transaction'), i = new Pristine(n);
+        $('.select-js').select2();
+    });
+
+    $(document).on('change', "#trn_acc_id_fk", function (e) {
+        var n = document.getElementById('trn_acc_id_fk'), i = new Pristine(n);
+        var validated = i.validate($('#trn_acc_id_fk'));
+        var trn_acc_id_fk = $('#trn_acc_id_fk').val();
+        if (validated) {
+            $.ajax({
+                url: '/Accounts/SelectAccountById/?acc_id=' + trn_acc_id_fk,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#acc_holder_name').val(data.acc_holder_name);
+                    $('#acc_account_type').val(data.acc_account_type);
+                },
+                error: function () { },
+            });
+        }
+    });
+
+    $(function () {
+        $('#form-transaction').submit(function (e) {
+            e.preventDefault();
+            var n = document.getElementById('form-transaction'), i = new Pristine(n);
+            if (i.validate()) {
+                $("#trn_type").val("D");
+                $('#trn_receipt_no').textBoxValue(generateSixDigitRandomNumber());
+                var formArray = JSON.parse($('#form-transaction').jform(), (key, value) => {
+                    if (value === "true") {
+                        return true;
+                    } else if (value === "false") {
+                        return false;
+                    } else if (typeof value === "string" && /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value)) {
+                        const [_, day, month, year] = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                        return new Date(`${year}-${month}-${day}T00:00:00Z`);
+                    }
+                    return value;
+                });
+                var formJson = JSON.stringify(formArray);
+                var url = "/transactions/insert/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    data: formJson,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    headers: {
+
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        i.reset();
+                        if (result.success) {
+                            ShowNotification('Saving complete. Your changes have been recorded.', 'success', 'bar', 5000);
+                            $('.btn-clear').trigger('click');
+                            updateReceiptDate(formArray.trn_date);
+                            updateReceiptNo(formArray.trn_receipt_no);
+                            updateDescription(formArray.trn_description.toUpperCase());
+                            updateAmount(formArray.trn_cramount);
+                        }
+                        else {
+                            ShowNotification('Save unsuccessful. ' + result.message, 'error', 'bar', 10000);
+                        }
+                        $('#btnSubmit').text('Submit');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        ShowNotification('Save unsuccessful. ' + textStatus, 'error', 'bar', 10000);
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', ".btn-clear", function (e) {
+        $('.select-js').val(null).trigger('change');
+        var n = document.getElementById('form-transaction'), i = new Pristine(n);
+        i.reset();
+        $('#btnSubmit').text('Submit');
+        $("#trn-date").text('  /  /    ');
+        updateReceiptNo('');
+        updateDescription('');
+        updateAmount('0.00');
+    });
+</script>

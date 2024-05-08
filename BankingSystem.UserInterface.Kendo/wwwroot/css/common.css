@@ -1,0 +1,200 @@
+﻿/* Input */
+#statementTable_wrapper input {
+    border-style: solid;
+    border-color: #00000012;
+    border-width: 1px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+ }
+
+#statementTable > tfoot > tr > th:nth-child(2) > input {
+    width: 100%;
+}
+
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.form-inline {
+    display: block !important;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+}
+
+input[type="radio"] {
+    vertical-align: text-bottom;
+}
+
+.k-radio.k-checked::before, .k-radio:checked::before {
+    transform: scale(1) translate(-50%,-50%) !important;
+    border-color: #1dbb99 !important;
+}
+
+.card-body span span input[type=text] {
+    max-width: 100% !important;
+}
+
+.k-numerictextbox .k-numeric-wrap {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+    .k-numerictextbox .k-numeric-wrap.k-state-focused {
+        box-shadow: none !important;
+    }
+
+/* Circle Button Styling */
+.btn-circle {
+    border-color: white !important;
+    padding: 0px 0px 0px 0px !important;
+    border-radius: 100% !important;
+    margin: 0px 5px 0px 5px !important;
+    color: white !important;
+    box-shadow: 0px 0px 3px #444;
+    border-width: 2px !important;
+}
+
+.btn-success {
+    background-color: #31b131 !important;
+}
+
+.btn-circle:hover {
+    box-shadow: 0px 0px 5px #444;
+}
+
+a.btn.disabled, fieldset:disabled a.btn {
+    pointer-events: none !important;
+    background-color: whitesmoke !important;
+    border-color: lightgray !important;
+    color: lightgray !important;
+    border-width: 1px !important;
+}
+
+.material-icons {
+    font-size: 12px;
+    padding: 4px !important;
+}
+
+body > div.bootbox.modal.fade.in > div > div > div.modal-header > h5 {
+    text-align: left !important;
+}
+
+.k-textbox {
+    width: 100%;
+}
+
+.table tbody tr td {
+    vertical-align: middle !important;
+    padding-top: 15px !important;
+    padding-right: 5px !important;
+    padding-bottom: 15px !important;
+}
+
+.datatable td {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-break: break-all !important;
+}
+
+/* Datatable Control Icon Styling */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    top: 0px !important;
+    left: 0px !important;
+    height: 19px !important;
+    width: 19px !important;
+    line-height: 20px !important;
+    background-color: #48B0F7 !important;
+    margin: 15px 5px 11px 0px !important;
+    font-weight: bold !important;
+}
+
+/* Kendo DatePicker Select */
+.form-input-group .form-control .k-select {
+    background-color: rgba(255,255,255,0) !important;
+    box-shadow: none !important;
+}
+
+/* Picker wrap */
+.form-input-group .form-control .k-picker-wrap {
+    background-color: rgba(255,255,255,0) !important;
+    box-shadow: none !important;
+    border-style: none !important;
+    padding-left: 0px !important;
+}
+
+.form-group-default.input-group .form-control {
+    padding-left: 4px !important;
+    color: #999999 !important;
+}
+
+.have-error {
+    background-color: #FEEEEE !important;
+}
+
+a.btn-primary {
+    color: white !important;
+}
+
+.btn-cons {
+    margin-right: 0px !important;
+}
+
+#ajaxform .form-group label {
+    color: #ababab;
+}
+
+/* Numerictextbox */
+.k-numerictextbox {
+    color: #424242 !important;
+}
+
+.form-group-default.disabled input {
+    color: #424242 !important;
+}
+
+.inner-content {
+    margin-left: 0px !important;
+}
+
+.split-list {
+    overflow: hidden;
+}
+
+.form-group-default.form-group-default-select2 .select2-container .select2-selection--single {
+    height: 55px !important;
+}
+
+/* REPORTS PARAMETERS */
+.page-content-wrapper .wizard-footer .fa-sliders {
+    position: relative;
+    top: 16px;
+    right: 15px;
+}
+
+.select2-dropdown {
+    z-index: 2000 !important;
+}
+
+.quickview-wrapper {
+    top: 60px !important;
+    right: -350px !important;
+    width: 350px;
+    background: #fff;
+    box-shadow: -10 0 9px -10 rgb(191 191 191 / 36%) !important;
+}
+
+@media (max-width: 767px) {
+    .quickview-wrapper {
+        top: 47px !important;
+        right: -350px !important;
+        width: 350px;
+        background: #fff;
+    }
+}
+

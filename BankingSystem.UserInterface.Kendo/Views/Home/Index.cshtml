@@ -1,0 +1,40 @@
+﻿@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link href="~/lib/filepond/css/filepond.css" rel="stylesheet" />
+    <link href="~/lib/filepond/css/filepond-plugin-image-preview.css" rel="stylesheet" />
+}
+
+<div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+        <div class="inner">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">HOME</a></li>
+                <li class="breadcrumb-item active">DASHBOARD</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="bg-white">
+        <div class="row">
+            <div class="col-lg-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="grid-card" data-pages="card" class="card card-default">
+                    <div style="padding-left: 20px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

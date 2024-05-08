@@ -1,0 +1,223 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.TransactionHistory
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+        <div class="inner">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">SERVICES</a></li>
+                <li class="breadcrumb-item active">ACCOUNT DETAILS</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="bg-white">
+        <div class="row">
+            <div class="col-lg-12">
+                <div data-pages="card" class="card card-default card-collapsed" id="card-transaction">
+                    <div class="card-header  ">
+                        <div class="card-title">
+                            <h2>Account Details</h2>
+                        </div>
+                        <div class="card-controls">
+                            <ul>
+                                <li>
+                                    <a id="arrow-collapse" data-toggle="collapse" class="card-collapse">
+                                        <i class="pg-arrow_minimize"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-history" class="needs-validation" novalidate role="form" autocomplete="off" asp-action="Save" asp-controller="Accounts">
+                            <kendo-dateinput for="date_from" format="dd/MM/yyyy" class="form-group hidden" name="date_from" value="@DateTime.Today.AddYears(-10)"></kendo-dateinput>
+                            <kendo-dateinput for="date_to" format="dd/MM/yyyy" class="form-group hidden" name="date_to" value="@DateTime.Today.AddYears(10)"></kendo-dateinput>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Account Details</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default form-group-default-select2">
+                                        <label class="">Account No.</label>
+                                        <select asp-for="acc_id" asp-items="@ViewBag.Accounts" class="full-width select2-hidden-accessible select-js form-group-parent" required tabindex="3">
+                                            <option value="">Select Account</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Id Number</label>
+                                        <kendo-textbox for="acc_holder_id" type="text" class="form-control" name="acc_holder_id" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Id" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Holder Name</label>
+                                        <kendo-textbox for="acc_holder_name" type="text" class="form-control" name="acc_holder_name" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Opening Date</label>
+                                        <kendo-dateinput for="acc_opening_date" format="dd/MM/yyyy" type="text" class="form-control" name="acc_opening_date" value="@DateTime.Today" disabled data-pristine-required-message="This field is required" tabindex="1"></kendo-dateinput>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Type</label>
+                                        <kendo-textbox for="acc_account_type" type="text" class="form-control" name="acc_account_type" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="5"></kendo-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Contact Details</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Phone (Mobile)</label>
+                                        <kendo-textbox for="acc_holder_phone" maxlength="11" pattern="/^(0)(3)\d\d\d\d\d{5}$/g" data-pristine-pattern-message="Not a valid mobile phone number" disabled data-pristine-required-message="This field is required" type="text" class="form-control" name="acc_holder_phone" placeholder="Enter mobile number" tabindex="6"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Door</label>
+                                        <kendo-textbox for="acc_holder_address_door" type="text" class="form-control" name="acc_holder_address_door" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="7"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Street</label>
+                                        <kendo-textbox for="acc_holder_address_street" type="text" class="form-control" name="acc_holder_address_street" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="8"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>City</label>
+                                        <kendo-textbox for="acc_holder_address_city" type="text" class="form-control" name="acc_holder_address_city" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="9"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Post Code</label>
+                                        <kendo-textbox for="acc_holder_address_post_code" disabled data-pristine-required-message="This field is required" type="text" class="form-control" name="acc_holder_address_post_code" placeholder="Account Holder Name" tabindex="10"></kendo-textbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix mt-2">
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_is_closed" tabindex="11" disabled>
+                                        <label asp-for="acc_is_closed">Is Closed?</label>
+                                    </div>
+                                </div>
+                                <div class="col-10 float-end">
+                                    <div class="float-right">
+                                        <button id="btnClear" class="btn btn-default btn-clear ml-2" type="reset" tabindex="11">Clear</button>
+                                        <button id="btnSubmit" class="btn btn-success ml-2" type="submit" tabindex="12">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="statement" class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var n = document.getElementById('form-history'), i = new Pristine(n);
+        $('.select-js').select2();
+    });
+
+    $(document).on('change', "#acc_id", function (e) {
+        var n = document.getElementById('acc_id'), i = new Pristine(n);
+        var validated = i.validate($('#acc_id'));
+        var acc_id = $('#acc_id').val();
+        if (validated) {
+            $.ajax({
+                url: '/Accounts/SelectAccountById/?acc_id=' + acc_id,
+                type: 'POST',
+                data: {},
+                success: function (data) {
+                    $('#acc_holder_id').val(data.acc_holder_id);
+                    $('#acc_holder_name').val(data.acc_holder_name);
+                    $('#acc_opening_date').val(dateToUk(data.acc_opening_date));
+                    $('#acc_account_type').val(data.acc_account_type);
+                    $('#acc_holder_phone').val(data.acc_holder_phone);
+                    $('#acc_holder_address_door').val(data.acc_holder_address_door);
+                    $('#acc_holder_address_street').val(data.acc_holder_address_street);
+                    $('#acc_holder_address_city').val(data.acc_holder_address_city);
+                    $('#acc_holder_address_post_code').val(data.acc_holder_address_post_code);
+                },
+                error: function () { },
+            });
+        }
+    });
+
+    $(function () {
+        $('#form-history').submit(function (e) {
+            e.preventDefault();
+            var n = document.getElementById('form-history'), i = new Pristine(n);
+            if (i.validate()) {
+                $("#trn_type").val("W");
+                var formArray = JSON.parse($('#form-history').jform(), (key, value) => {
+                    if (value === "true") {
+                        return true;
+                    } else if (value === "false") {
+                        return false;
+                    } else if (typeof value === "string" && /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value)) {
+                        const [_, day, month, year] = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                        return new Date(`${year}-${month}-${day}T00:00:00Z`);
+                    }
+                    return value;
+                });
+                var formJson = JSON.stringify(formArray);
+                var url = "/transactions/showstatementpartial/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    data: formJson,
+                    contentType: "application/json",
+                    dataType: 'html',
+                    headers: {
+
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        i.reset();
+                        $('#statement').html(result);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        ShowNotification('Save unsuccessful. ' + textStatus, 'error', 'bar', 10000);
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', ".btn-clear", function (e) {
+        $('.select-js').val(null).trigger('change');
+        var n = document.getElementById('form-history'), i = new Pristine(n);
+        i.reset();
+        $('#btnSubmit').text('Submit');
+    });
+</script>

@@ -1,0 +1,91 @@
+﻿.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background: transparent;
+    color: #444444;
+}
+
+.jumbotron {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.container, .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+
+.page-container .page-content-wrapper .content {
+     padding-top: 40px;
+ }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#plotsTable > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.card {
+    margin-bottom: 0px;
+}
+
+body.menu-behind .header .brand {
+    padding-left: 0px;
+}
+
+.header div .text-center {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.tab-content, .sidebar-card {
+    height: 100%;
+}
+
+#documents-dropzone {
+    height: 100px;
+}
+
+.dz-size {
+    visibility: hidden;
+}
+
+.dropzone a.dz-remove, .dropzone-previews a.dz-remove {
+   margin-top: 5px;
+}
+
+.dropzone {
+    min-height: 100px !important;
+}
+
+.dz-thumbnail img {
+    width: 100%;
+}
+
+.dz-image img {
+    width: 100%;
+}
+
+/* Add this custom CSS to your stylesheets */
+.dropzone .dz-image img {
+    /*height: auto !important;*/ /* Set height to auto */
+    width: auto !important; /* Set width to auto */
+    max-width: 100% !important; /* Ensure the image fits within the container */
+}
+
+.dz-image img { 
+    z-index: 100;
+}
+
+#btn-quick-view-close {
+    font-size: 32px;
+    color: black;
+}
+
+.form-group.form-group-default.form-group-default-select2 {
+    height: 54px;
+}

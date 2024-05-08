@@ -1,0 +1,380 @@
+﻿@model BankingSystem.DataAccess.Sql.Models.AccountSelect
+@addTagHelper *, Kendo.Mvc
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Kendo.Mvc.UI
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron" data-pages="parallax">
+    <div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+        <div class="inner">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">SERVICES</a></li>
+                <li class="breadcrumb-item active">CHECKBOOK & CARDS</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <div class="bg-white">
+        <div class="row">
+            <div class="col-lg-12">
+                <div data-pages="card" class="card card-default card-collapsed" id="card-accounts">
+                    <div class="card-header  ">
+                        <div class="card-title">
+                            <h2>Checkbook & Cards</h2>
+                        </div>
+                        <div class="card-controls">
+                            <ul>
+                                <li>
+                                    <a id="arrow-collapse" data-toggle="collapse" class="card-collapse">
+                                        <i class="pg-arrow_minimize"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-accounts" class="needs-validation" novalidate role="form" autocomplete="off" asp-action="Save" asp-controller="Accounts">
+                            <kendo-numerictextbox for="acc_id" name="acc_id" class="form-group hidden"></kendo-numerictextbox>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Account Details</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account No.</label>
+                                        <kendo-textbox for="acc_account_number" type="text" class="form-control" name="acc_account_number" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="1"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Account Type</label>
+                                        <kendo-textbox for="acc_account_type" type="text" class="form-control" name="acc_account_type" disabled data-pristine-required-message="This field is required" placeholder="Account Type" tabindex="2"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Name</label>
+                                        <kendo-textbox for="acc_holder_name" type="text" class="form-control" name="acc_holder_name" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Name" tabindex="3"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Id Number</label>
+                                        <kendo-textbox for="acc_holder_id" type="text" class="form-control" name="acc_holder_id" disabled data-pristine-required-message="This field is required" placeholder="Account Holder Id" tabindex="4"></kendo-textbox>
+                                    </div>
+                                </div>
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_is_closed" tabindex="5" disabled>
+                                        <label asp-for="acc_is_closed">Is Closed?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Checkbook Request</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_checkbook_requested" tabindex="6">
+                                        <label asp-for="acc_checkbook_requested">Checkbook Requested?</label>
+                                    </div>
+                                </div>
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_checkbook_issued" tabindex="7">
+                                        <label asp-for="acc_checkbook_issued">Checkbook Issued?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <p class="bold sm-p-t-20">Card Request</p>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_card_requested" tabindex="8">
+                                        <label asp-for="acc_card_requested">Card Requested?</label>
+                                    </div>
+                                </div>
+                                <div class="col-2 form-group-parent">
+                                    <div class="checkbox check-success form-group">
+                                        <input type="checkbox" asp-for="acc_card_issued" tabindex="9">
+                                        <label asp-for="acc_card_issued">Card Issued?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Card Number</label>
+                                        <kendo-maskedtextbox for="acc_card_number" mask="0000-0000-0000-0000" unmask-on-post="false" pattern="/^4\d{3}-\d{4}-\d{4}-\d{4}$/" type="text" class="form-control" name="acc_card_number" data-pristine-required-message="This field is required" data-pristine-pattern-message="Not a valid card number" placeholder="Enter card number" tabindex="11"></kendo-maskedtextbox>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Issue Date</label>
+                                        <kendo-dateinput for="acc_card_issue_date" format="dd/MM/yyyy" type="text" class="form-control" name="acc_card_issue_date" value="@DateTime.Today" required data-pristine-required-message="This field is required" tabindex="12"></kendo-dateinput>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group-parent">
+                                    <div class="form-group form-group-default">
+                                        <label>Expiry Date</label>
+                                        <kendo-dateinput for="acc_card_expiry_date" format="dd/MM/yyyy" type="text" class="form-control" name="acc_card_expiry_date" value="@DateTime.Today" required data-pristine-required-message="This field is required" tabindex="13"></kendo-dateinput>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                            </div>
+                            <div class="row clearfix mt-2">
+                                <div class="col-2 form-group-parent"></div>
+                                <div class="col-10 float-end">
+                                    <div class="float-right">
+                                        <button id="btnClear" class="btn btn-default btn-clear ml-2" type="reset" tabindex="14">Clear</button>
+                                        <button id="btnSubmit" class="btn btn-success ml-2" type="submit" tabindex="15">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-header ">
+                        <div class="card-title">
+                        </div>
+                        <div class="pull-right">
+                            <div class="col-xs-12">
+                                <input type="text" id="search-table" class="form-control pull-right" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="card-body">
+                        <div id="tableWithDynamicRows_wrapper" class="dataTables_wrapper form-inline no-footer">
+                            <table class="table table-hover dataTable nowrap" id="accountsTable" role="grid" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="text-left all">Id</th>
+                                        <th class="text-left all">Account No.</th>
+                                        <th class="text-center all">Name</th>
+                                        <th class="text-left all">Customer Id</th>
+                                        <th class="text-center">Account Type</th>
+                                        <th class="text-center">Checkbook</th>
+                                        <th class="text-center">Card</th>
+                                        <th class="text-center">Card Number</th>
+                                        <th class="text-right all">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="grid-card" data-pages="card" class="card card-default">
+                    <div style="padding-left: 20px;">
+                        @*<button id="add-root" class="btn btn-default btn-sm m-t-10"><i class="fa fa-plus"></i><span style="display:inline-block; width: 5px;"></span>New Root</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var dataTable, rowDelete;
+    $(document).ready(function () {
+        dataTable = $("#accountsTable")
+            .DataTable({
+                ajax: {
+                    "url": "/Accounts/SelectAllAccounts",
+                    "type": "GET",
+                    "datatype": "json",
+                    beforeSend: function () {
+                        $('body').loadingModal({ text: 'Loading...' });
+                    },
+                    complete: function () {
+                        $('body').loadingModal('hide');
+                    }
+                },
+                paging: true,
+                bProcessing: false,
+                bSearchable: true,
+                bSort: false,
+                responsive: true,
+                searching: true,
+                info: false,
+
+                sDom: "<t><'row'<p i>>",
+                destroy: true,
+                scrollCollapse: true,
+                oLanguage: {
+                    sLengthMenu: "_MENU_ ",
+                    sInfo: "Showing <b>_START_ to _END_</b> of _TOTAL_ entries"
+                },
+                iDisplayLength: 100,
+
+                columnDefs: [
+                    { width: '100%', targets: 2 },
+                    {
+                        targets: -1,
+                        data: null,
+                        defaultContent: "<button id='edit-this' class='btn btn-primary btn-sm'>Edit</button>",
+                    }
+                ],
+                columns: [
+                    { data: "acc_id" },
+                    { data: "acc_account_number" },
+                    { data: "acc_holder_name" },
+                    { data: "acc_holder_id" },
+                    { data: "acc_account_type" },
+                    {
+                        data: "Checkbook", "render": function (data, type, full, meta) {
+                            if (full.acc_checkbook_requested == false) {
+                                return "<td><span class='label label-danger p-t-5 m-l-5 p-b-5 inline fs-12'>NO REQUEST</span></td>"
+                            }
+                            if (full.acc_checkbook_requested == true && full.acc_checkbook_issued == false) {
+                                return "<td><span class='label label-warning p-t-5 m-l-5 p-b-5 inline fs-12'>REQUESTED</span></td>"
+                            }
+                            if (full.acc_checkbook_requested == true && full.acc_checkbook_issued == true) {
+                                return "<td><span class='label label-success p-t-5 m-l-5 p-b-5 inline fs-12'>ISSUED</span></td>"
+                            }
+                        }, className: "text-center"
+                    },
+                    {
+                        data: "Card", "render": function (data, type, full, meta) {
+                            if (full.acc_card_requested == false) {
+                                return "<td><span class='label label-danger p-t-5 m-l-5 p-b-5 inline fs-12'>NO REQUEST</span></td>"
+                            }
+                            if (full.acc_card_requested == true && full.acc_card_issued == false) {
+                                return "<td><span class='label label-warning p-t-5 m-l-5 p-b-5 inline fs-12'>REQUESTED</span></td>"
+                            }
+                            if (full.acc_card_requested == true && full.acc_card_issued == true) {
+                                return "<td><span class='label label-success p-t-5 m-l-5 p-b-5 inline fs-12'>ISSUED</span></td>"
+                            }
+                        }, className: "text-center"
+                    },
+                    { data: "acc_card_number" },
+                    { data: null, className: "text-center" },
+                ]
+            });
+
+        $('#search-table').on('keyup', function () {
+            dataTable.column(2).search(this.value).draw();
+        });
+
+        $('#accountsTable tbody').on('click', '#edit-this', function () {
+            current_row = $(this).parents('tr');
+            if (current_row.hasClass('child')) {
+                current_row = current_row.prev();
+            }
+            var data = dataTable.row(current_row).data();
+            $.cxDialog({
+                title: 'Confirm Edit',
+                info: 'Do you want to edit this record?',
+                ok: function () {
+                    $('#form-accounts').jform(data);
+                    $('#acc_id').numericValue(data.acc_id);
+                    $('#acc_opening_date').dateInputValue(dateToUk(data.acc_opening_date));
+                    $('#acc_is_closed').checked(data.acc_is_closed);
+                    $('#acc_checkbook_requested').checked(data.acc_checkbook_requested);
+                    $('#acc_checkbook_issued').checked(data.acc_checkbook_issued);
+                    $('#acc_card_requested').checked(data.acc_card_requested);
+                    $('#acc_card_issued').checked(data.acc_card_issued);
+                    $('#acc_card_issue_date').dateInputValue(dateToUk(data.acc_card_issue_date));
+                    $('#acc_card_expiry_date').dateInputValue(dateToUk(data.acc_card_expiry_date));
+                    ShowNotification('Record placed in edit mode.', 'info', 'bar', 10000);
+                    GoTop();
+                    rowEdit = true;
+                    $('#btnSubmit').text('Update');
+                    $('#acc_holder_dob').trigger('change');
+                },
+                okText: 'Yes',
+                no: function () {
+
+                },
+                noText: 'No',
+                baseClass: 'ios'
+            });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        var n = document.getElementById('form-accounts'), i = new Pristine(n);
+        $('.select-js').select2();
+    });
+
+    $(document).on('change', "#acc_account_type", function (e) {
+        var n = document.getElementById('acc_account_type'), i = new Pristine(n);
+        var validated = i.validate($('#acc_account_type'));
+    });
+
+    $(function () {
+        $('#form-accounts').submit(function (e) {
+            e.preventDefault();
+            var n = document.getElementById('form-accounts'), i = new Pristine(n);
+            if (i.validate()) {
+                var formArray = JSON.parse($('#form-accounts').jform(), (key, value) => {
+                    if (value === "true") {
+                        return true;
+                    } else if (value === "false") {
+                        return false;
+                    } else if (typeof value === "string" && /^(\d{2})\/(\d{2})\/(\d{4})$/.test(value)) {
+                        const [_, day, month, year] = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+                        return new Date(`${year}-${month}-${day}T00:00:00Z`);
+                    }
+                    return value;
+                });
+                var formJson = JSON.stringify(formArray);
+                var url = "/accounts/AccountCheckbookAndCardUpdate/";
+                debugger;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    data: formJson,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    headers: {
+
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (result) {
+                        i.reset();
+                        if (result.success) {
+                            ShowNotification('Saving complete. Your changes have been recorded.', 'success', 'bar', 5000);
+                            dataTable.ajax.reload();
+                            $('.btn-clear').trigger('click');
+                        }
+                        else {
+                            ShowNotification('Save unsuccessful. ' + result.message, 'error', 'bar', 10000);
+                        }
+                        $('#btnSubmit').text('Submit');
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        ShowNotification('Save unsuccessful. ' + textStatus, 'error', 'bar', 10000);
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', ".btn-clear", function (e) {
+        $('.select-js').val(null).trigger('change');
+        var n = document.getElementById('form-accounts'), i = new Pristine(n);
+        i.reset();
+        dataTable.ajax.reload();
+        $('#acc_holder_dob').dateInputValue(dateToUk("1900-01-01T00:00:00"));
+        $('#btnSubmit').text('Submit');
+    });
+</script>

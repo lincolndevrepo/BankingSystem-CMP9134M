@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34321.82
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BankingSystem.DataAccess", "BankingSystem.DataAccess", "{BDCBAD4A-F555-4AE4-9B3D-82CDD2E3EAB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.DataAccess.Sql", "BankingSystem.DataAccess.Sql\BankingSystem.DataAccess.Sql.csproj", "{CB009C6A-02B9-4426-94D1-E7F8E332505A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BankingSystem.Common", "BankingSystem.Common", "{81C3D231-E6AA-4C8E-9B0A-524F78B13F32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankingSystem.Common.Utilities", "BankingSystem.Common.Utilities\BankingSystem.Common.Utilities.csproj", "{7EBF603F-0507-4802-B38A-EF2AF18B6B98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BankingSystem.UserInterface", "BankingSystem.UserInterface", "{45EC9865-2C09-4620-AA41-7A07EB9914F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankingSystem.UserInterface.Kendo", "BankingSystem.UserInterface.Kendo\BankingSystem.UserInterface.Kendo.csproj", "{95285E93-EE3E-44A3-85DF-F4DEC12A25D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DECFC2DB-0933-4CCE-ADF4-2353870E92A4}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CB009C6A-02B9-4426-94D1-E7F8E332505A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB009C6A-02B9-4426-94D1-E7F8E332505A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB009C6A-02B9-4426-94D1-E7F8E332505A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB009C6A-02B9-4426-94D1-E7F8E332505A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBF603F-0507-4802-B38A-EF2AF18B6B98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBF603F-0507-4802-B38A-EF2AF18B6B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBF603F-0507-4802-B38A-EF2AF18B6B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBF603F-0507-4802-B38A-EF2AF18B6B98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95285E93-EE3E-44A3-85DF-F4DEC12A25D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95285E93-EE3E-44A3-85DF-F4DEC12A25D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95285E93-EE3E-44A3-85DF-F4DEC12A25D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95285E93-EE3E-44A3-85DF-F4DEC12A25D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CB009C6A-02B9-4426-94D1-E7F8E332505A} = {BDCBAD4A-F555-4AE4-9B3D-82CDD2E3EAB0}
+		{7EBF603F-0507-4802-B38A-EF2AF18B6B98} = {81C3D231-E6AA-4C8E-9B0A-524F78B13F32}
+		{95285E93-EE3E-44A3-85DF-F4DEC12A25D1} = {45EC9865-2C09-4620-AA41-7A07EB9914F9}
+		{DECFC2DB-0933-4CCE-ADF4-2353870E92A4} = {45EC9865-2C09-4620-AA41-7A07EB9914F9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECCC9723-8583-4526-BD9C-F81FFB264F9F}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,64 @@
+﻿.font-style-level-1 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.font-style-level-2 {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.font-style-level-3 {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+}
+
+.size-code {
+    width: 75px !important;
+    min-width: 75px !important;
+}
+
+.size-description {
+    width: 100% !important;
+    padding-left: 10px !important;
+}
+
+.size-amount {
+    padding-left: 10px !important;
+    min-width: 100px !important;
+}
+
+.size-family {
+    padding-left: 10px !important;
+    width: 75px !important;
+}
+
+.size-type {
+    padding-left: 10px !important;
+    width: 75px !important;
+}
+
+.size-status {
+    padding-left: 10px !important;
+    width: 75px !important;
+}
+
+.size-actions {
+    padding: 0px 15px 0px 10px !important;
+    width: 115px !important;
+    min-width: 115px !important;
+}
+
+.table.table-hover tbody tr:hover td {
+    background: #f8fdff !important;
+}
+
+/* Table Data */
+#transTable td.size-code {
+    padding-left: 35px !important;
+}
+
+/* Text right */
+#transTable tfoot .text-right {
+    padding-right: 4px;
+}
